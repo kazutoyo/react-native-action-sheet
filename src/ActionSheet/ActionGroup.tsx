@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   AccessibilityInfo,
-  findNodeHandle,
   Image,
   Platform,
   ScrollView,
@@ -9,6 +8,7 @@ import {
   Text,
   UIManager,
   View,
+  findNodeHandle,
 } from 'react-native';
 
 import { ActionSheetOptions } from '../types';
@@ -31,6 +31,10 @@ const DESTRUCTIVE_COLOR = '#d32f2f';
  */
 const focusViewOnRender = (ref: React.Component | null) => {
   if (ref) {
+    // Skip auto-focus on web
+    if (Platform.OS === 'web') {
+      return;
+    }
     const reactTag = findNodeHandle(ref);
     if (reactTag) {
       if (Platform.OS === 'android') {
