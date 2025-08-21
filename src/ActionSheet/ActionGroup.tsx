@@ -10,6 +10,7 @@ import {
   View,
   findNodeHandle,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ActionSheetOptions } from '../types';
 import TouchableNativeFeedbackSafe from './TouchableNativeFeedbackSafe';
@@ -74,10 +75,10 @@ export default class ActionGroup extends React.Component<Props> {
 
   render() {
     return (
-      <View style={[styles.groupContainer, this.props.containerStyle]}>
+      <SafeAreaView style={[styles.groupContainer, this.props.containerStyle]}>
         {this._renderTitleContent()}
         <ScrollView>{this._renderOptionViews()}</ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 

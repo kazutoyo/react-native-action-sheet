@@ -99,23 +99,21 @@ export default class CustomActionSheet extends React.Component<Props, State> {
     );
 
     return (
-      <SafeAreaView pointerEvents={this.props.pointerEvents} style={styles.safeAreaView}>
-        <View pointerEvents={this.props.pointerEvents} style={styles.flexContainer}>
-          {appContent}
-          {isVisible && !useModal && (
-            <>
-              {overlay}
-              {this._renderSheet()}
-            </>
-          )}
-          {isVisible && useModal && (
-            <Modal animationType="none" transparent onRequestClose={this._selectCancelButton}>
-              {overlay}
-              {this._renderSheet()}
-            </Modal>
-          )}
-        </View>
-      </SafeAreaView>
+      <View pointerEvents={this.props.pointerEvents} style={styles.flexContainer}>
+        {appContent}
+        {isVisible && !useModal && (
+          <>
+            {overlay}
+            {this._renderSheet()}
+          </>
+        )}
+        {isVisible && useModal && (
+          <Modal animationType="none" transparent onRequestClose={this._selectCancelButton}>
+            {overlay}
+            {this._renderSheet()}
+          </Modal>
+        )}
+      </View>
     );
   }
 
@@ -315,9 +313,6 @@ export default class CustomActionSheet extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   flexContainer: {
-    flex: 1,
-  },
-  safeAreaView: {
     flex: 1,
   },
   overlay: {
