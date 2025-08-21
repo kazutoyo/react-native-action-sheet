@@ -11,6 +11,7 @@ import {
   View,
   ViewProps,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ActionSheetOptions } from '../types';
 import ActionGroup from './ActionGroup';
@@ -98,21 +99,23 @@ export default class CustomActionSheet extends React.Component<Props, State> {
     );
 
     return (
-      <View pointerEvents={this.props.pointerEvents} style={styles.flexContainer}>
-        {appContent}
-        {isVisible && !useModal && (
-          <>
-            {overlay}
-            {this._renderSheet()}
-          </>
-        )}
-        {isVisible && useModal && (
-          <Modal animationType="none" transparent onRequestClose={this._selectCancelButton}>
-            {overlay}
-            {this._renderSheet()}
-          </Modal>
-        )}
-      </View>
+      <SafeAreaView pointerEvents={this.props.pointerEvents} style={styles.safeAreaView}>
+        <View pointerEvents={this.props.pointerEvents} style={styles.flexContainer}>
+          {appContent}
+          {isVisible && !useModal && (
+            <>
+              {overlay}
+              {this._renderSheet()}
+            </>
+          )}
+          {isVisible && useModal && (
+            <Modal animationType="none" transparent onRequestClose={this._selectCancelButton}>
+              {overlay}
+              {this._renderSheet()}
+            </Modal>
+          )}
+        </View>
+      </SafeAreaView>
     );
   }
 
@@ -312,6 +315,9 @@ export default class CustomActionSheet extends React.Component<Props, State> {
 
 const styles = StyleSheet.create({
   flexContainer: {
+    flex: 1,
+  },
+  safeAreaView: {
     flex: 1,
   },
   overlay: {

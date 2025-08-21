@@ -147,8 +147,8 @@ export default class ActionGroup extends React.Component<Props> {
       const color = isIndexDestructive(i, destructiveButtonIndex)
         ? destructiveColor
         : isCancelButton
-        ? cancelButtonTintColor || defaultColor
-        : defaultColor;
+          ? cancelButtonTintColor || defaultColor
+          : defaultColor;
       const iconSource = icons != null ? icons[i] : null;
 
       optionViews.push(
@@ -162,7 +162,7 @@ export default class ActionGroup extends React.Component<Props> {
           style={[styles.button, disabled && styles.disabledButton]}
           accessibilityRole="button"
           accessibilityLabel={options[i]}>
-          {this._renderIconElement(iconSource, color)}
+          {this._renderIconElement(iconSource, String(color))}
           <Text style={[styles.text, textStyle, { color }]}>{options[i]}</Text>
         </TouchableNativeFeedbackSafe>
       );
