@@ -11,7 +11,6 @@ import {
   View,
   ViewProps,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ActionSheetOptions } from '../types';
 import ActionGroup from './ActionGroup';
