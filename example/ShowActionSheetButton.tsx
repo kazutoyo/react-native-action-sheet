@@ -1,7 +1,7 @@
 import { ActionSheetOptions } from '@expo/react-native-action-sheet';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import * as React from 'react';
-import { Text, View, TextStyle, ViewStyle, findNodeHandle } from 'react-native';
+import { Text, View, TextStyle, ViewStyle, Platform, findNodeHandle } from 'react-native';
 
 const icon = (name: React.ComponentProps<typeof MaterialIcons>['name']) => (
   <MaterialIcons key={name} name={name} size={24} />
@@ -94,7 +94,9 @@ export default class ShowActionSheetButton extends React.PureComponent<Props> {
         }
       : undefined;
     const anchor: number | null = this._anchorRef.current
-      ? findNodeHandle(this._anchorRef.current)
+      ? Platform.OS === 'web'
+        ? null
+        : findNodeHandle(this._anchorRef.current)
       : null;
 
     showActionSheetWithOptions(

@@ -12,11 +12,11 @@ import {
   Text,
   View,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
   Share,
   Platform,
 } from 'react-native';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 
 import ShowActionSheetButton from './ShowActionSheetButton';
 
@@ -258,12 +258,14 @@ export default function WrappedApp() {
   const [useCustomActionSheet, setUseCustomActionSheet] = useState(false);
 
   return (
-    <ActionSheetProvider useCustomActionSheet={useCustomActionSheet}>
-      <ConnectedApp
-        useCustomActionSheet={useCustomActionSheet}
-        setUseCustomActionSheet={setUseCustomActionSheet}
-      />
-    </ActionSheetProvider>
+    <SafeAreaProvider>
+      <ActionSheetProvider useCustomActionSheet={useCustomActionSheet}>
+        <ConnectedApp
+          useCustomActionSheet={useCustomActionSheet}
+          setUseCustomActionSheet={setUseCustomActionSheet}
+        />
+      </ActionSheetProvider>
+    </SafeAreaProvider>
   );
 }
 

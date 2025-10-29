@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {
   AccessibilityInfo,
-  findNodeHandle,
   Image,
   Platform,
   ScrollView,
@@ -9,7 +8,9 @@ import {
   Text,
   UIManager,
   View,
+  findNodeHandle,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { ActionSheetOptions } from '../types';
 import TouchableNativeFeedbackSafe from './TouchableNativeFeedbackSafe';
@@ -31,6 +32,10 @@ const DESTRUCTIVE_COLOR = '#d32f2f';
  */
 const focusViewOnRender = (ref: React.Component | null) => {
   if (ref) {
+    // Skip auto-focus on web
+    if (Platform.OS === 'web') {
+      return;
+    }
     const reactTag = findNodeHandle(ref);
     if (reactTag) {
       if (Platform.OS === 'android') {
@@ -70,10 +75,10 @@ export default class ActionGroup extends React.Component<Props> {
 
   render() {
     return (
-      <View style={[styles.groupContainer, this.props.containerStyle]}>
+      <SafeAreaView style={[styles.groupContainer, this.props.containerStyle]}>
         {this._renderTitleContent()}
         <ScrollView>{this._renderOptionViews()}</ScrollView>
-      </View>
+      </SafeAreaView>
     );
   }
 
@@ -147,8 +152,8 @@ export default class ActionGroup extends React.Component<Props> {
       const color = isIndexDestructive(i, destructiveButtonIndex)
         ? destructiveColor
         : isCancelButton
-        ? cancelButtonTintColor || defaultColor
-        : defaultColor;
+          ? cancelButtonTintColor || defaultColor
+          : defaultColor;
       const iconSource = icons != null ? icons[i] : null;
 
       optionViews.push(
@@ -162,7 +167,7 @@ export default class ActionGroup extends React.Component<Props> {
           style={[styles.button, disabled && styles.disabledButton]}
           accessibilityRole="button"
           accessibilityLabel={options[i]}>
-          {this._renderIconElement(iconSource, color)}
+          {this._renderIconElement(iconSource, String(color))}
           <Text style={[styles.text, textStyle, { color }]}>{options[i]}</Text>
         </TouchableNativeFeedbackSafe>
       );

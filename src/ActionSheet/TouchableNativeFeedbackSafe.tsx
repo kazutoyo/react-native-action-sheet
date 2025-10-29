@@ -20,7 +20,7 @@ class CustomTouchableOpacity extends React.Component {
 
 const TouchableComponent = Platform.select({
   default: CustomTouchableOpacity,
-  android: Platform.Version <= 20 ? CustomTouchableOpacity : TouchableNativeFeedback,
+  android: Number(Platform.Version) <= 20 ? CustomTouchableOpacity : TouchableNativeFeedback,
 });
 
 type Props = TouchableWithoutFeedbackProps & {
