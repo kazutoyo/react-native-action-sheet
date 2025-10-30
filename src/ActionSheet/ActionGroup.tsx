@@ -77,7 +77,7 @@ export default class ActionGroup extends React.Component<Props> {
     return (
       <SafeAreaView
         style={[styles.groupContainer, this.props.containerStyle]}
-        edges={['bottom', 'left', 'bottom']}>
+        edges={['right', 'bottom', 'left']}>
         {this._renderTitleContent()}
         <ScrollView>{this._renderOptionViews()}</ScrollView>
       </SafeAreaView>
